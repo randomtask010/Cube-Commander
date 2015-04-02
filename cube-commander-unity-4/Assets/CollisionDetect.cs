@@ -24,17 +24,27 @@ public class CollisionDetect : MonoBehaviour {
 		Debug.Log("I'm working!");
 
 		print("Points colliding: " + col.contacts.Length);
-		print("First point that collided: " + col.contacts[0].point);
+		print("First point that collided: x =" + col.contacts[0].point[0] + " y = " + col.contacts[0].point[1]);
+		//Calculate where new block has to be created
+		// center of new block depends on angle of centerPiece
+		float x1 = col.contacts [0].point [0];
+		float y1 = col.contacts [0].point [1];
+		float angle = Mathf.Atan2 (x1, y1) - Mathf.PI/4.0F;
+		//float radius = Mathf.Sqrt (x1 * x1 + y1 * y1);
+
+		print ("angle = " + angle);
+		float xx =  Mathf.Sin (angle) ;
+		float yy =  Mathf.Cos (angle) ;
+		print ("x = " + xx + " y = " + yy);
+
+		//print ("center rotation = " + CenterPieces.transform.eulerAngles);
 
 		//print("Points colliding: " + col.contacts.Length);
 		//print("Second point that collided: " + col.contacts[1].point);
 
-		//Calculate where new block has to be created
-		int newx = 0;
-		int newy = 1;
 
 		// On collision clone a new block
-		Instantiate(block, new Vector2(newx, newy), Quaternion.identity);
+		Instantiate(block, new Vector2(xx, yy), CenterPieces.transform.rotation);
 
 		// Find block and set parent to Centerpieces object
 		GameObject block2 = GameObject.Find("block(Clone)");

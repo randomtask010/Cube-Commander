@@ -2,7 +2,7 @@
 using System.Collections;
 
 public class Rotate : MonoBehaviour {
-
+	public Transform CenterPieces;
 	// Use this for initialization
 	void Start () {
 	
@@ -14,12 +14,14 @@ public class Rotate : MonoBehaviour {
 	void Update () {
 
 		if (Input.GetKey ("a")) {
-			print ("LEFT");
+			//print ("LEFT");
+			//print ("center rotation = " + CenterPieces.transform.eulerAngles);
 			transform.Rotate (0, 0, spinspeed * Time.deltaTime);
 		}
 
 		if (Input.GetKey ("d")) {
-			print ("RIGHT");
+			//print ("RIGHT");
+			//print ("center rotation = " + CenterPieces.transform.eulerAngles);
 			transform.Rotate (0, 0, -spinspeed * Time.deltaTime);
 		}
 	
