@@ -29,15 +29,71 @@ public class CollisionDetect : MonoBehaviour {
 		// center of new block depends on angle of centerPiece
 		float x1 = col.contacts [0].point [0];
 		float y1 = col.contacts [0].point [1];
-		float angle = Mathf.Atan2 (x1, y1) - Mathf.PI/4.0F;
+		//float angle = Mathf.Atan2 (x1, y1) - Mathf.PI/4.0F;
+		float degree = CenterPieces.transform.eulerAngles[2] ;
+		// only need tilt of side so do modulus 90
+		//degree = degree % 90;
+		// convert angle to radians Math.PI * degrees / 180.0
+		float angle = degree * Mathf.PI / 180F;
+		print ("Angle = " + degree + " degrees " + angle + " radians");
 		//float radius = Mathf.Sqrt (x1 * x1 + y1 * y1);
-
-		print ("angle = " + angle);
-		float xx =  Mathf.Sin (angle) ;
-		float yy =  Mathf.Cos (angle) ;
+		// test if 2 point touching
+		// check about quadrant
+		float xx=0f;
+		float yy=0f;
+		float dl = Mathf.Sqrt (0.52F);
+// slight left turn
+		if (degree < 45F) {
+			degree = 45f - degree;
+			angle = degree * Mathf.PI / 180F;
+			xx = x1 - dl * Mathf.Cos (angle);
+			yy = y1 + dl * Mathf.Sin (angle);
+		}
+		else if (degree < 90F) {
+			degree = 90F - degree;
+			angle = degree * Mathf.PI / 180F;
+			xx = x1 - dl * Mathf.Cos (angle);
+			yy = y1 + dl * Mathf.Sin (angle);
+		}
+		else if (degree < 135F) {
+			degree = 90F - degree;
+			angle = degree * Mathf.PI / 180F;
+			xx = x1 - dl * Mathf.Cos (angle);
+			yy = y1 + dl * Mathf.Sin (angle);
+		}
+		else if (degree < 180F) {
+			degree = 90F - degree;
+			angle = degree * Mathf.PI / 180F;
+			xx = x1 - dl * Mathf.Cos (angle);
+			yy = y1 + dl * Mathf.Sin (angle);
+		}
+		else if ( degree < 225F) {
+			degree = degree - 270F;
+			angle = degree * Mathf.PI / 180F;
+			xx = x1 + dl * Mathf.Cos (angle);
+			yy = y1 + dl * Mathf.Sin (angle);
+		}
+		else if ( degree < 270F) {
+			degree = degree - 270F;
+			angle = degree * Mathf.PI / 180F;
+			xx = x1 + dl * Mathf.Cos (angle);
+			yy = y1 + dl * Mathf.Sin (angle);
+		}
+		else if ( degree < 315F) {
+			degree = degree - 270F;
+			angle = degree * Mathf.PI / 180F;
+			xx = x1 + dl * Mathf.Cos (angle);
+			yy = y1 + dl * Mathf.Sin (angle);
+		}
+		// slight right turn
+		else {
+			degree = degree - 315F;
+			angle = degree * Mathf.PI / 180F;
+			xx = x1 + dl * Mathf.Cos (angle);
+			yy = y1 + dl * Mathf.Sin (angle);
+		}
 		print ("x = " + xx + " y = " + yy);
 
-		//print ("center rotation = " + CenterPieces.transform.eulerAngles);
 
 		//print("Points colliding: " + col.contacts.Length);
 		//print("Second point that collided: " + col.contacts[1].point);

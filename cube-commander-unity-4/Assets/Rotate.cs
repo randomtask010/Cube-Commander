@@ -24,6 +24,12 @@ public class Rotate : MonoBehaviour {
 			//print ("center rotation = " + CenterPieces.transform.eulerAngles);
 			transform.Rotate (0, 0, -spinspeed * Time.deltaTime);
 		}
+
+		/*if (Input.GetKey ("/") && CenterPieces.transform.eulerAngles == 90) {
+			//print ("RIGHT");
+			//print ("center rotation = " + CenterPieces.transform.eulerAngles);
+			transform.Rotate (0, 0, 1);
+		}*/
 	
 	}
 }
