@@ -5,9 +5,10 @@ public class CollisionBottom : MonoBehaviour {
 
 	public Transform block;
 	public Transform CenterPieces;
+	public AudioClip chime;
 
 	// Use this for initialization
-	void Start () { 
+	void Start () {
 	}
 	
 	// Update is called once per frame
@@ -36,7 +37,6 @@ public class CollisionBottom : MonoBehaviour {
 		Transform objcol = (Transform)Instantiate(block, new Vector2(xx, yy), CenterPieces.transform.rotation);
 
 
-
 		// Find block and set parent to Centerpieces object
 		//GameObject block2 = GameObject.Find("block(Clone)");
 		objcol.transform.parent = CenterPieces.transform;
@@ -46,9 +46,56 @@ public class CollisionBottom : MonoBehaviour {
 		
 		//change sprite of cloned block to one that collided
 		objcol.GetComponent<SpriteRenderer>().sprite = col.gameObject.GetComponent<SpriteRenderer>().sprite;
-		//i1=
-		//i2= 
-		//objgrid [i1, i2] = objcol;
+		 
+		// calculate position in grid for block
+		// xx yy is current position - need to de-rotate
+		//x' = x cos f - y sin f
+		//y' = y cos f + x sin f
+		float delta = (90F - degree) * Mathf.PI / 180F;
+		int yd = -Mathf.RoundToInt(xx * Mathf.Cos (delta) - yy * Mathf.Sin (delta));
+		int xd = Mathf.RoundToInt(yy * Mathf.Cos (delta) + xx * Mathf.Sin (delta));
+		//print ("rotated x = " + xx + " y = " + yy);
+		//print ("derotated x = " + xd + " y = " + yd );
+		//print("added sprite  :"+objcol.GetComponent<SpriteRenderer>().sprite);
+		//test if edge of screen and array reached
+		// if abs(xd) > s or abs(yd) > s then stop game
+
+		GridArray.grid [xd + GridArray.s, yd + GridArray.s] = objcol;
+		// check if 4 in a row - turn code into a method, pass location xd,yd, return boolean true false
+		// check up -
+		bool same = true;
+		int i = xd + GridArray.s;
+		int j = yd + GridArray.s;
+		print ("i,j=" + i + ","+j);
+		int k = 1;
+		print("sprite  0:"+GridArray.grid [i,j].GetComponent<SpriteRenderer>().sprite);
+		while (same==true & k<4) {
+			if(GridArray.grid [i,j+k] == null) {
+				print("null "+k);
+				print ("i,j+k=" + i + ","+(j+k));
+				same = false;
+			}
+			else {
+				print ("i,j+k=" + i + ","+(j+k));
+				print("sprite  "+k+":"+GridArray.grid [i,j+k].GetComponent<SpriteRenderer>().sprite);
+				if(GridArray.grid [i,j].GetComponent<SpriteRenderer>().sprite != GridArray.grid [i,j+k].GetComponent<SpriteRenderer>().sprite) {
+					same = false;
+				}
+			}
+			k++;
+		}
+		print ("Blocks = " + (k-1));
+		print ("same = " + same);
+		// if true - delete row and reposition otehr pieces.
+		if (same==true) {
+			CenterPieces.GetComponent<sound>().chimePlay();
+			print ("four in a row!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			for(k=0;k<4;k++){
+				Destroy(GridArray.grid[i,j+k].gameObject);
+				GridArray.grid[i,j+k]=null;
+			}
+		}
+
 	}
 }	
 

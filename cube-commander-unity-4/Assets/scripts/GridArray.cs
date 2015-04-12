@@ -8,6 +8,7 @@ public class GridArray : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		print ("grid" + s);
 		print ("Test");
 	}
 	

@@ -1,12 +1,13 @@
 ﻿<Properties GitUserInfo="UsingMD">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\GridArray.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\CollisionTop.cs">
     <Files>
-      <File FileName="Assets\scripts\CollisionBottom.cs" Line="51" Column="5" />
-      <File FileName="Assets\scripts\CollisionLeft.cs" Line="22" Column="27" />
-      <File FileName="Assets\scripts\CollisionRight.cs" Line="22" Column="27" />
-      <File FileName="Assets\scripts\CollisionTop.cs" Line="22" Column="27" />
-      <File FileName="Assets\scripts\GridArray.cs" Line="13" Column="36" />
+      <File FileName="Assets\scripts\CollisionBottom.cs" Line="7" Column="32" />
+      <File FileName="Assets\scripts\GridArray.cs" Line="6" Column="25" />
+      <File FileName="Assets\scripts\CollisionLeft.cs" Line="7" Column="32" />
+      <File FileName="Assets\scripts\CollisionRight.cs" Line="7" Column="32" />
+      <File FileName="Assets\scripts\CollisionTop.cs" Line="91" Column="7" />
+      <File FileName="Assets\scripts\Spawner.cs" Line="27" Column="26" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
